@@ -1,0 +1,34 @@
+@CHARSET "UTF-8";
+body,html{height:100%; background-color: #f2f2f2; color: #666666;}
+
+.layui-layout-admin .layui-body {bottom: 0px;}
+.btn-handle-group {float: right; margin: 0px}
+.layui-card-header.card-header-auto {padding-top: 15px; padding-bottom: 15px; height: auto; text-align: right;}
+.layui-card-header.card-header-auto .layui-form-item {margin-bottom: 0px;}
+.layui-card-header.card-header-auto .layui-form-item .layui-inline {margin-bottom: 0px;}
+.layui-card-header {position: relative;}
+.layui-form-select dl dd {text-align: center;}
+.layui-form-label {color: #1b1e21; width: 90px;}
+.layui-input-block {margin-left: 120px;}
+.layui-input-block .label {display: block; float: left; height: 38px; line-height: 38px;}
+.layui-input-block .label-input {float: left; margin: 0px 5px;}
+.layui-input-inline .label {display: block; float: left; height: 38px; line-height: 38px;}
+.layui-input-inline .label-input {float: left; margin: 0px 5px;}
+.hidden {display: none;}
+.width-per-20 {width: 20%;}
+.width-per-30 {width: 30%;}
+.width-per-40 {width: 40%;}
+.width-per-50 {width: 50%;}
+.width-per-60 {width: 60%;}
+.width-per-70 {width: 70%;}
+.width-per-80 {width: 80%;}
+.upload_tips {color: red;}
+.layui-input-inline span.sort_tips {display: block; width: 100%; height: 38px; line-height: 38px; color: red;}
+.layui-table-cell{height: auto; max-height: 100px;}
+
+table {border-collapse: collapse; border: none;}
+.form_table_item tr td {height: 36px; border: 1px #e6e6e6 solid;}
+.form_table_item tr td.td_label{width: 120px; font-weight: 600; color: #1b1e21; text-align: center; background-color: #FBFBFB;}
+.form_table_item tr td.td_text{min-width: 300px; text-align: left; padding-left: 10px; color: #000;}
+.form_table_item tr td.td_text .img_preview {width: 100%; min-height: 60px;}
+.form_table_item tr td.td_text .img_preview img {max-height: 100px; max-width: 120px;}

@@ -3,6 +3,8 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
@@ -46,6 +48,18 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        return parent::render($request, $exception);
+        if ($exception instanceof ModelNotFoundException && $request->isXmlHttpRequest()) {
+            return response()->json([
+                'status' => 'error',
+                'info' => '无效的访问参数'
+            ], 404);
+        } elseif ($exception instanceof QueryException && $request->isXmlHttpRequest()) {
+            return response()->json([
+                'status' => 'error',
+                'info' => '数据异常'
+            ], 403);
+        } else {
+            return parent::render($request, $exception);
+        }
     }
 }
