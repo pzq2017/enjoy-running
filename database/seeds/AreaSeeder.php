@@ -15,21 +15,21 @@ class AreaSeeder extends Seeder
     {
         $area_json_file = database_path() . '/area.json';
         if (!file_exists($area_json_file)) {
-            $this->command->error("地区数据文件不存在！");
+            $this->command->error("Regional data file does not exist!");
         } else {
-            if (!$this->command->confirm('导入地区数据会把原有通过管理后台手动添加的地区数据清空。您任然继续导入地区数据？')) {
+            if (!$this->command->confirm('Importing area data will empty the original area data added manually through the management background. Are you still importing regional data?')) {
                 exit;
             }
             \DB::table('areas')->truncate();
             $areas = decode_json_data(file_get_contents($area_json_file));
             if (empty($areas)) {
-                $this->command->error("地区数据解析失败！");
+                $this->command->error("Failed to parse regional data!");
             } else {
-                $this->command->info('地区数据正在导入中...');
+                $this->command->info('Regional data is being imported.');
                 foreach ($areas as $area) {
                     $this->store_data($area, 0, 0);
                 }
-                $this->command->info('地区数据导入成功！');
+                $this->command->info('Regional Data Import Successful!');
             }
         }
     }

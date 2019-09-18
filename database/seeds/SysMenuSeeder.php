@@ -12,7 +12,7 @@ class SysMenuSeeder extends Seeder
      */
     public function run()
     {
-        if (!$this->command->confirm('是否要重置平台系统菜单？')) {
+        if (!$this->command->confirm('Do you want to reset the platform system menu?')) {
             exit;
         }
         \DB::table('sys_menus')->truncate();
