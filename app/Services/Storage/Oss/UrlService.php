@@ -30,7 +30,7 @@ class UrlService
         if (empty($filePath)) {
             return null;
         }
-        $oss = new AliOSS();
+        $oss = new AliOss();
         $oss->setBucket(config('oss.bucket'));
         $options = self::getImageHandleParams($options);
         if ($publicAccess) {

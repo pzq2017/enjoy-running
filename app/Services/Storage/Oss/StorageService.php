@@ -22,7 +22,7 @@ class StorageService
 
     public function __construct()
     {
-        $this->oss = new AliOSS();
+        $this->oss = new AliOss();
         $this->oss->setBucket(config('oss.bucket'));
     }
 
