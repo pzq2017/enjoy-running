@@ -45,9 +45,24 @@
                 {field: 'id', title: 'ID', sort: true, width: 60, align: 'center'},
                 {field: 'name', title: '名称', align: 'center'},
                 {field: 'categoryName', title: '类别', align: 'center'},
-                {field: 'price', title: '价格', align: 'center'},
+                {field: 'typeName', title: '类型', align: 'center'},
+                {field: 'imageUrl', title: '图片', align: 'center', templet: function (data) {
+                    return '<a href="'+data.imageUrl+'" target="_blank"><img src="'+data.imageUrl+'"></a>';
+                }},
+                {field: 'price', title: '价格', align: 'center', templet: function (data) {
+                    if (data.type == 1) {
+                        return '<span style="display: block;">原价: '+data.original_price+'</span>' + '<span style="display: block;">现价: '+data.price+'</span>';
+                    } else if (data.type == 2 || data.type == 3) {
+                        if (data.mileage_coin > 0) {
+                            return '<span>里程币：'+data.mileage_coin+'</span>';
+                        } else if (data.gold_coin > 0) {
+                            return '<span>金币：'+data.gold_coin+'</span>';
+                        }
+                    }
+                }},
+                {field: 'statusName', title: '状态', align: 'center'},
                 {field: 'created_at', title: '创建日期',sort: true, align: 'center'},
-                {fixed: 'right', title: '操作', toolbar: '#actionBar', width: 200, align: 'center'},
+                {title: '操作', toolbar: '#actionBar', width: 120, align: 'center'},
             ]],
             done: function (res, curr) {
                 curr_page = curr;

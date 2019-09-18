@@ -1,0 +1,1 @@
+执行composer install，可能会报php-fileinfo组件缺失，需手动在相应的php环境中安装并开启这个组件。

@@ -51,25 +51,25 @@
         <div class="layui-form-item physical">
             <label class="layui-form-label">原价<font color='red'>*</font>:</label>
             <div class="layui-input-inline">
-                <input type="text" name="original_price" lay-verify="required" autocomplete="off" class="layui-input">
+                <input type="number" name="original_price" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item physical">
             <label class="layui-form-label">现价<font color='red'>*</font>:</label>
             <div class="layui-input-inline">
-                <input type="text" name="price" lay-verify="required" autocomplete="off" class="layui-input">
+                <input type="number" name="price" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item hidden mileage_coin">
             <label class="layui-form-label">里程币<font color='red'>*</font>:</label>
             <div class="layui-input-inline">
-                <input type="number" name="mileage_coin" lay-verify="required" autocomplete="off" class="layui-input">
+                <input type="number" name="mileage_coin" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item hidden gold_coin">
             <label class="layui-form-label">金币<font color='red'>*</font>:</label>
             <div class="layui-input-inline">
-                <input type="number" name="gold_coin" lay-verify="required" autocomplete="off" class="layui-input">
+                <input type="number" name="gold_coin" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
@@ -110,8 +110,8 @@
         form.render();
 
         form.on('radio(goodsType)', function (data) {
-            $('.mileage_coin').addClass('hidden').find('input').val('');
-            $('.gold_coin').addClass('hidden').find('input').val('');
+            $('.mileage_coin').addClass('hidden').find('input').removeAttr('lay-verify').val('');
+            $('.gold_coin').addClass('hidden').find('input').removeAttr('lay-verify').val('');
             if (data.value == 1) {
                 $('.physical').removeClass('hidden');
                 $('.virtual').addClass('hidden');
@@ -120,22 +120,20 @@
                 $('.virtual').removeClass('hidden');
                 var pay_method = $('#payMethod').find('input[name="pay_method"]:checked').val();
                 if (pay_method == 1) {
-                    $('.mileage_coin').removeClass('hidden');
-                    $('.gold_coin').addClass('hidden');
+                    $('.mileage_coin').removeClass('hidden').find('input').attribute('lay-verify', 'required');
                 } else {
-                    $('.mileage_coin').addClass('hidden');
-                    $('.gold_coin').removeClass('hidden');
+                    $('.gold_coin').removeClass('hidden').find('input').attribute('lay-verify', 'required');
                 }
             }
         });
 
         form.on('radio(payMethod)', function (data) {
             if (data.value == 1) {
-                $('.mileage_coin').removeClass('hidden');
-                $('.gold_coin').addClass('hidden');
+                $('.mileage_coin').removeClass('hidden').find('input').attribute('lay-verify', 'required');
+                $('.gold_coin').addClass('hidden').find('input').removeAttr('lay-verify');
             } else {
-                $('.mileage_coin').addClass('hidden');
-                $('.gold_coin').removeClass('hidden');
+                $('.mileage_coin').addClass('hidden').find('input').removeAttr('lay-verify');
+                $('.gold_coin').removeClass('hidden').find('input').attribute('lay-verify', 'required');
             }
         });
 
