@@ -97,6 +97,10 @@ Route::group(['middleware' => ['admin.auth'], 'namespace' => 'Admin'], function 
     Route::group(['namespace' => 'Goods'], function () {
         //商品信息
         Route::get('goods/lists', 'GoodsController@lists')->name('goods.lists');
+        Route::get('goods/{good}/setting', 'GoodsController@setting')->name('goods.setting');
+        Route::get('goods/{good}/setting/edit', 'GoodsController@settingEdit')->name('goods.setting.edit');
+        Route::put('goods/{good}/setting/store', 'GoodsController@settingStore')->name('goods.setting.store');
+        Route::delete('goods/{good}/setting/delete', 'GoodsController@settingDelete')->name('goods.setting.delete');
         Route::resource('goods', 'GoodsController')->except('show');
 
         //商品类别

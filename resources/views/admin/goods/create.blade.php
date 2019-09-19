@@ -120,20 +120,20 @@
                 $('.virtual').removeClass('hidden');
                 var pay_method = $('#payMethod').find('input[name="pay_method"]:checked').val();
                 if (pay_method == 1) {
-                    $('.mileage_coin').removeClass('hidden').find('input').attribute('lay-verify', 'required');
+                    $('.mileage_coin').removeClass('hidden').find('input').attr('lay-verify', 'required');
                 } else {
-                    $('.gold_coin').removeClass('hidden').find('input').attribute('lay-verify', 'required');
+                    $('.gold_coin').removeClass('hidden').find('input').attr('lay-verify', 'required');
                 }
             }
         });
 
         form.on('radio(payMethod)', function (data) {
             if (data.value == 1) {
-                $('.mileage_coin').removeClass('hidden').find('input').attribute('lay-verify', 'required');
+                $('.mileage_coin').removeClass('hidden').find('input').attr('lay-verify', 'required');
                 $('.gold_coin').addClass('hidden').find('input').removeAttr('lay-verify');
             } else {
                 $('.mileage_coin').addClass('hidden').find('input').removeAttr('lay-verify');
-                $('.gold_coin').removeClass('hidden').find('input').attribute('lay-verify', 'required');
+                $('.gold_coin').removeClass('hidden').find('input').attr('lay-verify', 'required');
             }
         });
 

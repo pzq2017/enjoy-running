@@ -33,6 +33,10 @@
         save: '{{ route('admin.goods.store') }}',
         edit: '{{ route_uri('admin.goods.edit') }}',
         update: '{{ route_uri('admin.goods.update') }}',
+        setting: '{{ route_uri('admin.goods.setting') }}',
+        setting_edit: '{{ route_uri('admin.goods.setting.edit') }}',
+        setting_store: '{{ route_uri('admin.goods.setting.store') }}',
+        setting_delete: '{{ route_uri('admin.goods.setting.delete') }}',
         delete: '{{ route_uri('admin.goods.destroy') }}'
     };
     function Lists(page) {
@@ -99,6 +103,14 @@
             } else {
                 Common.alertErrors(data.info);
             }
+        });
+    }
+
+    function setting(id, type)
+    {
+        Common.loadPage(Common.getRealRoutePath(route_url.setting, {good: id}), {'type': type}, function (page) {
+            $('.card-box').addClass('hidden');
+            $('#content_box').html(page).removeClass('hidden');
         });
     }
 

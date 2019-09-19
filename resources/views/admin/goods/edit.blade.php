@@ -1,9 +1,9 @@
 <div class="layui-card-header">
     <button class="layui-btn layui-btn-normal" onclick="Lists(1)">返回</button>
-    <button class="layui-btn" onclick="sizeSet()">商品尺寸</button>
-    <button class="layui-btn layui-bg-black" onclick="colorSet()">商品颜色</button>
-    <button class="layui-btn layui-btn-danger" onclick="albumSet()">商品相册</button>
-    <button class="layui-btn layui-btn-warm" onclick="detailSet()">商品详情</button>
+    <button class="layui-btn" onclick="setting('{{ $good->id }}', 'size')">商品尺寸</button>
+    <button class="layui-btn layui-bg-black" onclick="setting('{{ $good->id }}', 'color')">商品颜色</button>
+    <button class="layui-btn layui-btn-danger" onclick="setting('{{ $good->id }}', 'album')">商品相册</button>
+    <button class="layui-btn layui-btn-warm" onclick="setting('{{ $good->id }}', 'detail')">商品详情</button>
 </div>
 <div class="layui-card-body">
     <form class="layui-form" onsubmit="return false;">
@@ -124,20 +124,20 @@
                 $('.virtual').removeClass('hidden');
                 var pay_method = $('#payMethod').find('input[name="pay_method"]:checked').val();
                 if (pay_method == 1) {
-                    $('.mileage_coin').removeClass('hidden').find('input').attribute('lay-verify', 'required');
+                    $('.mileage_coin').removeClass('hidden').find('input').attr('lay-verify', 'required');
                 } else {
-                    $('.gold_coin').removeClass('hidden').find('input').attribute('lay-verify', 'required');
+                    $('.gold_coin').removeClass('hidden').find('input').attr('lay-verify', 'required');
                 }
             }
         });
 
         form.on('radio(payMethod)', function (data) {
             if (data.value == 1) {
-                $('.mileage_coin').removeClass('hidden').find('input').attribute('lay-verify', 'required');
+                $('.mileage_coin').removeClass('hidden').find('input').attr('lay-verify', 'required');
                 $('.gold_coin').addClass('hidden').find('input').removeAttr('lay-verify');
             } else {
                 $('.mileage_coin').addClass('hidden').find('input').removeAttr('lay-verify');
-                $('.gold_coin').removeClass('hidden').find('input').attribute('lay-verify', 'required');
+                $('.gold_coin').removeClass('hidden').find('input').attr('lay-verify', 'required');
             }
         });
 

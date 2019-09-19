@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin\Goods;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Requests\Admin\GoodsRequest;
 use App\Models\Good;
+use App\Models\GoodColor;
 use App\Models\GoodsCategory;
+use App\Models\GoodSize;
 use App\Services\Storage\Oss\StorageService;
 use App\Services\Storage\Oss\UrlService;
 use Illuminate\Http\Request;
@@ -71,7 +73,7 @@ class GoodsController extends AdminController
         $goods->stock = $request->stock;
         $goods->applause_rate = $request->applause_rate ?? 0;
         $goods->intro = $request->intro;
-        $goods->status = $request->status;
+        $goods->status = $request->status ?? 0;
         $result = $goods->save();
 
         if ($result && $goods->id > 0) {
@@ -132,8 +134,91 @@ class GoodsController extends AdminController
         $good->stock = $request->stock;
         $good->applause_rate = $request->applause_rate ?? 0;
         $good->intro = $request->intro;
-        $good->status = $request->status;
+        $good->status = $request->status ?? 0;
         $good->save();
+
+        return $this->handleSuccess();
+    }
+
+    public function setting(Request $request, Good $good)
+    {
+        $type = $request->type;
+        if ($type == 'size') {
+            $list_settings = $good->sizes;
+        } elseif ($type == 'color') {
+            $list_settings = $good->colors;
+        } elseif ($type == 'album') {
+            $colors = $good->colors;
+            $list_settings = collect([]);
+        }
+
+        return view('admin.goods.setting', compact('type', 'good', 'list_settings', 'colors'));
+    }
+
+    public function settingEdit(Request $request, Good $good)
+    {
+        $setting = null;
+        $type = $request->type;
+
+        if ($type == 'size') {
+            $setting = GoodSize::where('goods_id', $good->id)->where('id', $request->id)->first();
+        } elseif ($type == 'color') {
+            $setting = GoodColor::where('goods_id', $good->id)->where('id', $request->id)->first();
+        }
+
+        return view('admin.goods.setting_edit', compact('good', 'setting', 'type'));
+    }
+
+    public function settingStore(Request $request, Good $good, StorageService $storageService)
+    {
+        if ($request->type == 'size') {
+            $good->sizes()->updateOrCreate([
+                'id' => $request->id ?? 0,
+                'goods_id' => $good->id
+            ],[
+                'name' => $request->name
+            ]);
+        } elseif ($request->type == 'color') {
+            $good->colors()->updateOrCreate([
+                'id' => $request->id ?? 0,
+                'goods_id' => $good->id
+            ],[
+                'name' => $request->name
+            ]);
+        } elseif ($request->type == 'album') {
+            $image_path = $request->image_path;
+            if (!$image_path) {
+                return $this->handleFail('请上传图片');
+            }
+            if (starts_with($image_path, 'temp/')) {
+                $image_path = $storageService->move($image_path, ['target_dir' => 'goods/'.$good->id.'/album']);
+                if (!$image_path) {
+                    return $this->handleFail('图片保存失败');
+                }
+            }
+            $good->albums()->updateOrCreate([
+                'id' => $request->id ?? 0,
+                'goods_id' => $good->id,
+            ],[
+                'goods_color_id' => $request->color_id,
+                'image' => $image_path
+            ]);
+        } elseif ($request->type == 'detail') {
+
+        }
+
+        return $this->handleSuccess();
+    }
+
+    public function settingDelete(Request $request, Good $good)
+    {
+        $type = $request->type;
+
+        if ($type == 'size') {
+            GoodSize::where('goods_id', $good->id)->where('id', $request->id)->delete();
+        } elseif ($type == 'color') {
+            GoodColor::where('goods_id', $good->id)->where('id', $request->id)->delete();
+        }
 
         return $this->handleSuccess();
     }

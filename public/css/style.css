@@ -32,3 +32,7 @@ table {border-collapse: collapse; border: none;}
 .form_table_item tr td.td_text{min-width: 300px; text-align: left; padding-left: 10px; color: #000;}
 .form_table_item tr td.td_text .img_preview {width: 100%; min-height: 60px;}
 .form_table_item tr td.td_text .img_preview img {max-height: 100px; max-width: 120px;}
+
+.list-table {width: 100%; margin: 20px auto;}
+.list-table tr th {height: 40px; background-color: #f2f2f2; width: 20%; text-align: center; border: 1px #e6e6e6 solid;}
+.list-table tr td {height: 38px; width: 20%; text-align: center; border: 1px #e6e6e6 solid;}
